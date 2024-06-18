@@ -85,6 +85,29 @@ int tabulation(vector<vector<int>> &OG, int m, int n)
     // }
     return dp[m - 1][n - 1];
 }
+int helper(vector<vector<int>> &OG, int r, int c, int m, int n, vector<vector<int>> &dp)
+{
+    if (r > m || c > n || OG[r][c] == 1)
+    {
+        return 0;
+    }
+    if (r == m && c == n)
+    {
+
+        return 1;
+    }
+    if (dp[r][c] != -1)
+    {
+        return dp[r][c];
+    }
+    int right = 0, bottom = 0;
+
+    bottom = helper(OG, r + 1, c, m, n, dp);
+
+    right = helper(OG, r, c + 1, m, n, dp);
+
+    return dp[r][c] = bottom + right;
+}
 int mazeObstacles(vector<vector<int>> &mat, int m, int n)
 {
     // Write your code here
